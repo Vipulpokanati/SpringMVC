@@ -5,82 +5,115 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #e3f2fd, #ffffff);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .container {
             max-width: 600px;
             background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-            margin-top: 50px;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            margin-top: 60px;
         }
+
         h2 {
             color: #343a40;
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            font-weight: 600;
         }
+
+        label {
+            font-weight: 600;
+            color: #495057;
+        }
+
+        input.form-control {
+            border-radius: 6px;
+            padding: 10px 12px;
+            border: 1px solid #ced4da;
+        }
+
+        input.form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: 4px;
+        }
+
         .btn-primary {
             background-color: #007bff;
             border: none;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s;
         }
+
         .btn-primary:hover {
             background-color: #0056b3;
+            transform: translateY(-1px);
         }
-        label {
-            font-weight: 600;
+
+        .btn-secondary {
+            background-color: #6c757d;
+            border: none;
+            transition: background-color 0.3s ease, transform 0.2s;
         }
-        input.form-control {
-            border-radius: 5px;
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+            transform: translateY(-1px);
         }
-        .error-message {
-            color: red;
-            font-size: 0.9em;
+
+        .btn-block {
+            margin-top: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
 <div class="container">
-    <h2>Add New Product</h2>
+    <h2>📝 Add New Product</h2>
     <form th:action="@{/saveProduct}" th:object="${productModel}" method="post">
         <div class="form-group">
             <label for="name">Product Name</label>
             <input type="text" class="form-control" id="name" th:field="*{name}" placeholder="Enter product name" required>
-            <!-- Validation Error Message -->
             <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
         </div>
 
         <div class="form-group">
-            <label for="price">Price</label>
-			<input type="number" step="1" class="form-control" id="price" th:field="*{price}" placeholder="Enter price" required>
-            <!-- Validation Error Message -->
+            <label for="price">Price (₹)</label>
+            <input type="number" step="0.01" class="form-control" id="price" th:field="*{price}" placeholder="Enter price" required>
             <div class="error-message" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
         </div>
 
         <div class="form-group">
             <label for="quantity">Quantity</label>
             <input type="number" class="form-control" id="quantity" th:field="*{quantity}" placeholder="Enter quantity" required>
-            <!-- Validation Error Message -->
             <div class="error-message" th:if="${#fields.hasErrors('quantity')}" th:errors="*{quantity}"></div>
         </div>
 
         <div class="form-group">
             <label for="madeIn">Made In</label>
             <input type="text" class="form-control" id="madeIn" th:field="*{madeIn}" placeholder="Country of origin" required>
-            <!-- Validation Error Message -->
             <div class="error-message" th:if="${#fields.hasErrors('madeIn')}" th:errors="*{madeIn}"></div>
         </div>
 
         <div class="form-group">
             <label for="brand">Brand</label>
             <input type="text" class="form-control" id="brand" th:field="*{brand}" placeholder="Brand name" required>
-            <!-- Validation Error Message -->
             <div class="error-message" th:if="${#fields.hasErrors('brand')}" th:errors="*{brand}"></div>
         </div>
 
-        <button type="submit" class="btn btn-primary btn-block">Add Product</button>
+        <button type="submit" class="btn btn-primary btn-block">➕ Add Product</button>
+        <a class="btn btn-secondary btn-block" href="/getAllProducts">📦 View Product List</a>
     </form>
 </div>
 </body>
